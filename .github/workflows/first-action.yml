@@ -9,3 +9,7 @@ jobs:
         run: echo "Hello world"
       - name: Print good bye
         run: echo "good bye"
+      - name: run parallel steps
+        run: |
+            echo "First name"
+            echo "Second name"
