@@ -3,8 +3,9 @@ name: test-js-project
 
 on: 
   push :
-    branches: main
-    
+    branches: 
+        - main
+
 jobs:
   test-js:
     runs-on: ubuntu-latest
