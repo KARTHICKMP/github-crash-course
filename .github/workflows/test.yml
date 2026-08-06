@@ -1,7 +1,5 @@
 name: test-js-project
-
 on: push
-
 jobs:
     test:
         runs-on: ubuntu-latest
@@ -14,5 +12,7 @@ jobs:
                   node-version: 18
             - name: install dependencies
               run: npm ci
+              working-directory: 02 Starting Project
             - name: run tests
               run: npm test
+              working-directory: 02 Starting Project
