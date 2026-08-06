@@ -20,5 +20,5 @@ jobs:
 
       - name: run tests
         working-directory: "02 Starting Project"
-        run: npm test
+        run: npm tests
        
