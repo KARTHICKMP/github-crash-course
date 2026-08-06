@@ -1,25 +1,24 @@
 name: test-js-project
 
-on:
-  push:
+on: push
 
 jobs:
-  test:
+  test-js:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get Code
+      - name: Get code
         uses: actions/checkout@v4
-
       - name: Use Node.js 18
         uses: actions/setup-node@v4
-        with:
+        with: 
           node-version: 18
 
       - name: Install dependencies
         working-directory: "02 Starting Project"
         run: npm ci
 
-      - name: Run tests
+      - name: run tests
         working-directory: "02 Starting Project"
         run: npm test
+       
