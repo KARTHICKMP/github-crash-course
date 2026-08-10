@@ -1,4 +1,4 @@
-name: test-js-project
+name: Deploy-js-project
 
 
 on: 
@@ -25,4 +25,20 @@ jobs:
       - name: run tests
         working-directory: "02 Starting Project"
         run: npm test
-       
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Get code
+         uses: actions/checkout@v4
+       - name: Use Node.js 18
+         uses: actions/setup-node@v4
+         with: 
+                node-version: 18    
+       - name: Install dependencies
+         working-directory: "02 Starting Project"
+         run: npm ci
+       - name: Build project
+         working-directory: "02 Starting Project"
+         run: npm run build
+       - name: Deploy
+         run: echo "Deploying project..." # Replace this with your actual deployment command   
