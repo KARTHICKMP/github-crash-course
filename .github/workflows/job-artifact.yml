@@ -13,9 +13,6 @@ jobs:
       - name: Install dependencies
         working-directory: "02 Starting Project"
         run: npm ci
-      - name: install lint
-        working-directory: "02 Starting Project"
-        run: npm install eslint
       - name: Lint code
         working-directory: "02 Starting Project"
         run: |
