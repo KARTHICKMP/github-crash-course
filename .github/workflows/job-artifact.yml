@@ -18,7 +18,9 @@ jobs:
         run: npm install eslint
       - name: Lint code
         working-directory: "02 Starting Project"
-        run: npm run lint
+        run: |
+          npm run lint
+          npm init @eslint/config
       - name: Test code
         working-directory: "02 Starting Project"
         run: npm run test
