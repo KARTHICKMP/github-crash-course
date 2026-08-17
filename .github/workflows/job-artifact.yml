@@ -1,0 +1,51 @@
+name: Deploy website
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        working-directory: "02 Starting Project"
+        run: npm ci
+      - name: Lint code
+        working-directory: "02 Starting Project"
+        run: npm run lint
+      - name: Test code
+        working-directory: "02 Starting Project"
+        run: npm run test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        working-directory: "02 Starting Project"
+        run: npm ci
+      - name: Build website
+        working-directory: "02 Starting Project"
+        run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3        
+        with:
+          name: dist-files
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+      - name: Output contents
+        run: ls
+      - name: Deploy
+        working-directory: "02 Starting Project"
+        run: echo "Deploying..."
