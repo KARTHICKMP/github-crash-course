@@ -3,13 +3,23 @@ on:
   push:
     branches:
       - main
+env:
+  NODE_ENV: production
 jobs:
   test:
+    env: 
+      job_name: test
     runs-on: ubuntu-latest
     steps:
-      
+      - name: my env name
+        run: echo "Job name is ${{ env.job_name }} running on workflow with env name ${{ env.NODE_ENV }}"
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         working-directory: "02 Starting Project"
         run: npm ci
@@ -24,15 +34,26 @@ jobs:
   build:
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      script-file: ${{ steps.publish.outputs.script-file }}
     steps:
       - name: Get code
         uses: actions/checkout@v3
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}        
       - name: Install dependencies
         working-directory: "02 Starting Project"
         run: npm ci
       - name: Build website
         working-directory: "02 Starting Project"
         run: npm run build
+      - name: Publish JS file name
+        id: publish
+        working-directory: "02 Starting Project"
+        run: find dist/assets/*.js -type f -execdir echo 'script-file={}' >> $GITHUB_OUTPUT ';'
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3        
         with:
@@ -48,6 +69,8 @@ jobs:
           name: dist-files
       - name: Output contents
         run: ls
+      - name: Output filename
+        run: echo "${{ needs.build.outputs.script-file }}"
       - name: Deploy
         working-directory: "02 Starting Project"
         run: echo "Deploying..."
