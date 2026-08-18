@@ -17,7 +17,7 @@ jobs:
       - name: print secret
         run: echo "My secret is ${{ secrets.SECRET_VARIABLE }}"
       - name: print env specific secret
-        run: echo "My env specific secret is ${{ secrets.ENV_NAME }} AND my env variable is ${{ vars.ENV_VARIABLE_NAME}}"
+        run: echo "My env specific secret is ${{ secrets.ENV_NAME }} AND my env variable is ${{ env.ENV_VARIABLE_NAME }}"
       - name: Get code
         uses: actions/checkout@v3
       - name: Cache dependencies
