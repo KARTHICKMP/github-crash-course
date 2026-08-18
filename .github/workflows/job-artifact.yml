@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: my env name
         run: echo "Job name is ${{ env.job_name }} running on workflow with env name ${{ env.NODE_ENV }}"
+      - name: print secret
+        run: echo "My secret is ${{ secrets.SECRET_VARIABLE }}"
       - name: Get code
         uses: actions/checkout@v3
       - name: Cache dependencies
