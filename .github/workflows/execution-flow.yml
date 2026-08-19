@@ -16,8 +16,10 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        working-directory: "02 Starting Project"
         run: npm ci
       - name: Lint code
+        working-directory: "02 Starting Project"
         run: npm run lint
   test:
     runs-on: ubuntu-latest
@@ -31,8 +33,10 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        working-directory: "02 Starting Project"
         run: npm ci
       - name: Test code
+        working-directory: "02 Starting Project"
         run: npm run test
       - name: Upload test report
         uses: actions/upload-artifact@v3
@@ -52,9 +56,11 @@ jobs:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        working-directory: "02 Starting Project"
         run: npm ci
       - name: Build website
         id: build-website
+        working-directory: "02 Starting Project"
         run: npm run build
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
