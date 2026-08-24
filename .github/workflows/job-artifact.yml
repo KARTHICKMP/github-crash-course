@@ -17,9 +17,9 @@ jobs:
       - name: print env specific secret
         run: echo "My env specific secret is ${{ secrets.ENV_NAME }} AND my env variable is ${{ vars.ENV_VARIABLE_NAME }}"
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
@@ -39,12 +39,12 @@ jobs:
       script-file: ${{ steps.publish.outputs.script-file }}
     steps:
       - name: Get code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.npm
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}        
+          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         working-directory: "02 Starting Project"
         run: npm ci --include=dev
