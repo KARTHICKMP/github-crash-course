@@ -27,12 +27,10 @@ jobs:
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         working-directory: "02 Starting Project"
-        run: npm ci
+        run: npm ci --include=dev
       - name: Lint code
         working-directory: "02 Starting Project"
-        run: |
-          npm run lint
-          npm init @eslint/config
+        run: npm run lint
       - name: Test code
         working-directory: "02 Starting Project"
         run: npm run test
